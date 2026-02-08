@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TESLLa — News Archive</title>
+  <meta name="description" content="News archive for Liu's Trustworthy and Ethical Statistical Learning Lab (TESLLa) at Notre Dame." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --bg: #0b1020;
+  --surface: rgba(255,255,255,.06);
+  --surface2: rgba(255,255,255,.09);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+  --border: rgba(255,255,255,.12);
+  --accent: #c99700; /* ND-ish gold */
+  --accent2: #1f6feb;
+  --max: 1100px;
+  --radius: 18px;
+  --shadow: 0 18px 45px rgba(0,0,0,.35);
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f7fb;
+    --surface:#ffffff;
+    --surface2:#f0f3fa;
+    --text:rgba(10,15,26,.92);
+    --muted:rgba(10,15,26,.68);
+    --border:rgba(10,15,26,.12);
+    --shadow: 0 18px 45px rgba(10,15,26,.10);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 15% 0%, rgba(31,111,235,.25), transparent 55%),
+              radial-gradient(1100px 700px at 85% 15%, rgba(201,151,0,.22), transparent 60%),
+              var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{color:inherit; text-decoration-color: rgba(201,151,0,.6); text-underline-offset: 3px}
+a:hover{ text-decoration-color: rgba(201,151,0,1); }
+.container{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+.skip-link{
+  position:absolute; left:-999px; top:10px;
+  background:var(--surface); border:1px solid var(--border); color:var(--text);
+  padding:10px 14px; border-radius:999px; z-index:9999;
+}
+.skip-link:focus{ left:18px }
+
+.site-header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 0;
+  gap: 12px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px; min-width: 220px;
+  text-decoration:none;
+}
+.brand-mark{
+  width:38px; height:38px; border-radius:12px;
+  background: linear-gradient(135deg, rgba(201,151,0,.9), rgba(31,111,235,.9));
+  box-shadow: 0 10px 22px rgba(0,0,0,.22);
+}
+.brand-text{display:flex; flex-direction:column; line-height:1.1}
+.brand-text strong{font-size: 14px; letter-spacing:.2px}
+.brand-text span{font-size: 12px; color:var(--muted)}
+
+.nav{
+  display:flex; align-items:center; gap: 10px;
+}
+.nav a{
+  padding:10px 12px;
+  border-radius: 999px;
+  text-decoration:none;
+  color: var(--muted);
+}
+.nav a:hover, .nav a:focus-visible{
+  background: var(--surface);
+  color: var(--text);
+}
+.nav a.cta{
+  color: var(--text);
+  border:1px solid color-mix(in srgb, var(--accent) 60%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.nav-toggle{
+  display:none;
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius: 12px;
+  cursor:pointer;
+}
+
+@media (max-width: 860px){
+  .nav-toggle{display:inline-flex; align-items:center; gap:8px;}
+  .nav{
+    position:absolute;
+    left:18px; right:18px; top:64px;
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    padding:12px;
+    border-radius: var(--radius);
+    border:1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .nav[data-open="true"]{display:flex;}
+  .nav a{border-radius: 12px;}
+}
+
+main{padding: 26px 0 54px}
+.section{padding: 34px 0}
+.section h2{font-size: 26px; margin: 0 0 14px}
+.section p.lead{color:var(--muted); margin-top: 0}
+
+.hero{
+  display:grid;
+  grid-template-columns: 1.25fr .95fr;
+  gap: 22px;
+  align-items: center;
+  padding: 24px 0 8px;
+}
+@media (max-width: 860px){
+  .hero{grid-template-columns:1fr; padding-top: 10px;}
+}
+
+.hero h1{
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height:1.08;
+  margin: 0 0 10px;
+  letter-spacing: -0.4px;
+}
+.hero .subtitle{
+  color: var(--muted);
+  font-size: 16px;
+  margin: 0 0 18px;
+}
+.pills{display:flex; flex-wrap:wrap; gap:10px; margin: 18px 0 0}
+.pill{
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration:none;
+  color: var(--text);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.btn:hover{transform: translateY(-1px)}
+.btn.primary{
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--border));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--surface)), var(--surface));
+}
+.btn.ghost{
+  background: transparent;
+}
+.card{
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card.pad{padding: 18px}
+.grid{
+  display:grid;
+  gap: 14px;
+}
+.grid.two{grid-template-columns: repeat(2, minmax(0,1fr));}
+.grid.three{grid-template-columns: repeat(3, minmax(0,1fr));}
+@media (max-width: 860px){
+  .grid.two, .grid.three{grid-template-columns: 1fr;}
+}
+
+.hero-figure{
+  overflow:hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(31,111,235,.22), rgba(201,151,0,.18));
+  position:relative;
+}
+.hero-figure img{
+  width:100%; height:100%;
+  display:block;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  filter: saturate(1.05);
+}
+.hero-figure figcaption{
+  position:absolute; left:12px; bottom:12px;
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.16);
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+@media (prefers-color-scheme: light){
+  .hero-figure figcaption{
+    background: rgba(255,255,255,.55);
+    color: rgba(10,15,26,.9);
+  }
+}
+
+.list{
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.list li{margin: 7px 0}
+
+.news-item{
+  display:flex; gap:12px; align-items:flex-start;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.news-date{
+  min-width: 86px;
+  font-weight: 600;
+  color: var(--text);
+}
+.news-text{color: var(--muted);}
+.news-text a{color: var(--text);}
+
+.kv{
+  display:grid;
+  grid-template-columns: 150px 1fr;
+  gap: 10px 14px;
+  align-items:start;
+}
+.kv div:nth-child(odd){color: var(--muted)}
+.kv div:nth-child(even){color: var(--text)}
+@media (max-width: 600px){
+  .kv{grid-template-columns: 1fr;}
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 7px 10px;
+  border:1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 75%, transparent);
+  font-size: 12px;
+}
+
+details{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px 16px;
+}
+details summary{
+  cursor:pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+details .muted{color: var(--muted); margin-top: 8px;}
+
+.footer{
+  border-top: 1px solid var(--border);
+  padding: 22px 0;
+  color: var(--muted);
+}
+.footer a{color: var(--text)}
+
+hr.sep{
+  border:0;
+  height:1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* Archive */
+.controls{
+  display:flex; flex-wrap:wrap; gap: 10px;
+  margin: 14px 0 10px;
+}
+.control{
+  flex: 1 1 220px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.control label{font-size:12px; color: var(--muted)}
+.control input, .control select{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+}
+.timeline{list-style:none; padding:0; margin: 10px 0 0; display:grid; gap: 12px}
+.event{
+  display:grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.event .when{
+  font-weight: 700;
+  color: var(--text);
+}
+.event .what{
+  color: var(--muted);
+}
+.event .what a{color: var(--text);}
+@media (max-width: 700px){
+  .event{grid-template-columns: 1fr;}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Back to TESLLa home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>TESLLa</strong>
+        <span>News archive</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navmenu">
+      ☰ Menu
+    </button>
+
+    <nav id="navmenu" class="nav" data-open="false" aria-label="Primary">
+      <a href="index.html" class="cta">Home</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#people">People</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://acms.nd.edu/" target="_blank" rel="noopener noreferrer">ND ACMS</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+    <section class="section">
+      <h2>News archive</h2>
+      <p class="lead">A searchable list of past announcements. Use the filters below to quickly find items.</p>
+
+      <div class="controls">
+        <div class="control">
+          <label for="q">Search</label>
+          <input id="q" type="search" placeholder="Try: 'privacy', 'award', 'candidacy'…" />
+        </div>
+        <div class="control">
+          <label for="y">Year</label>
+          <select id="y">
+            <option value="">All years</option>
+            <option value="2024">2024</option>
+<option value="2023">2023</option>
+<option value="2022">2022</option>
+<option value="2021">2021</option>
+<option value="2020">2020</option>
+<option value="2019">2019</option>
+<option value="2018">2018</option>
+<option value="2017">2017</option>
+          </select>
+        </div>
+      </div>
+
+      <ul class="timeline" id="timeline">
+        <li class="event" data-year="2024" data-date="11/2024">
+  <div class="when">Nov 2024</div>
+  <div class="what">Fang was elected to become an Elected Member of International Statistical Institute (ISI) for her "significant contributions to the statistical profession." Congratulations! Fang.</div>
+</li>
+<li class="event" data-year="2024" data-date="06/2024">
+  <div class="when">Jun 2024</div>
+  <div class="what">ACMS PhD students Gina Mannino and Xiaoan (Shawn) Lang joined TESLLa. Shawn holds a B.S. degree in Mathematics/Computer Science from Wake Forest University and Gina holds a B.S. degree in Chemistry/Mathematics from Franciscan University of Steubenville. Welcome! Gina and Shawn.</div>
+</li>
+<li class="event" data-year="2024" data-date="03/2024">
+  <div class="when">Mar 2024</div>
+  <div class="what">Congratulations to Xingyuan Zhao on successfully defending her doctoral dissertation and graduation from ND in May 2024!</div>
+</li>
+<li class="event" data-year="2024" data-date="01/2024">
+  <div class="when">Jan 2024</div>
+  <div class="what">Congratulations to Tian Yan on successfully defending her doctoral dissertation and graduation from ND in Aug 2024! 05/2023 Congratulations to Bingyue Su and Yu Wang on successfully defending their doctoral dissertations. All the best for your future, Dr. Su and Dr. Wang!</div>
+</li>
+<li class="event" data-year="2023" data-date="02/2023">
+  <div class="when">Feb 2023</div>
+  <div class="what">Congratulations to Ruyu Zhou on advancing to Ph.D. candidacy!</div>
+</li>
+<li class="event" data-year="2022" data-date="11/2022">
+  <div class="when">Nov 2022</div>
+  <div class="what">Fang Liu is named to the 2022 Notre Dame All-Faculty Team! Watch <a href="https://twitter.com/i/status/1589063966793158656" target="_blank" rel="noopener noreferrer"><u>a brief video </u> highlighting Fang's work and view <a href="https://provost.nd.edu/faculty-recognitions/all-faculty-team/2022-fang-liu/" target="_blank" rel="noopener noreferrer"><u>her testimonial quote.</u> Congratulations! Dr. Liu.</div>
+</li>
+<li class="event" data-year="2022" data-date="07/2022">
+  <div class="when">Jul 2022</div>
+  <div class="what">Spencer Giddes is selected a Lucy Scholar by the Lucy Family Institute for Data and Society to work on differential privacy related reseach topics. Congratulations! Spencer.</div>
+</li>
+<li class="event" data-year="2022" data-date="04/2022">
+  <div class="when">Apr 2022</div>
+  <div class="what">Fang Liu is named the 2022 recipient of the College Research Award in the College of Science at the University of Notre Dame. Congratulations! Dr. Liu.</div>
+</li>
+<li class="event" data-year="2021" data-date="12/06/2021">
+  <div class="when">Dec 6, 2021</div>
+  <div class="what">Ruyu Zhou joined Liu's research group as a doctoral student. Ruyu holds a B.S. degree in Applied Mathematics and Mathematics from Sichuan University. Welcome! Ruyu.</div>
+</li>
+<li class="event" data-year="2021" data-date="05/04/2021">
+  <div class="when">May 4, 2021</div>
+  <div class="what">Fang Liu is named a Fellow of American Statistical Association! Congratulations! Dr. Liu. Read the news <a href= "https://science.nd.edu/news/liu-named-fellow-of-american-statistical-association/" target="_blank" rel="noopener noreferrer"> here.</div>
+</li>
+<li class="event" data-year="2021" data-date="04/2021">
+  <div class="when">Apr 2021</div>
+  <div class="what">Congratulations to Spencer Giddens on advancing to Ph.D. candidacy! Congratulations! Xingyuan.</div>
+</li>
+<li class="event" data-year="2021" data-date="04/09/2021">
+  <div class="when">Apr 9, 2021</div>
+  <div class="what">Congratulations to Tian Yan on advancing to Ph.D. candidacy! Congratulations! Tian.</div>
+</li>
+<li class="event" data-year="2021" data-date="03/05/2021">
+  <div class="when">Mar 5, 2021</div>
+  <div class="what">Fang Liu is featured in Women Lead 2021 in celebration of the Womens History Month. Read her story <a href= "https://womenlead2021.nd.edu/fang-liu/" target="_blank" rel="noopener noreferrer"> here.</div>
+</li>
+<li class="event" data-year="2021" data-date="03/04/2021">
+  <div class="when">Mar 4, 2021</div>
+  <div class="what">Congratulations to Xingyuan Zhao on advancing to Ph.D. candidacy! Congratulations! Xingyuan.</div>
+</li>
+<li class="event" data-year="2021" data-date="01/06/2021">
+  <div class="when">Jan 6, 2021</div>
+  <div class="what">Spencer Giddens joined Liu's research group as a doctoral student. Spencer holds a B.S. degree in Applied and Comoputational Mathematics and a M.S. degree in Mathematics from the Brigham Young University. Welcome! Spencer.</div>
+</li>
+<li class="event" data-year="2020" data-date="03/27/2020">
+  <div class="when">Mar 27, 2020</div>
+  <div class="what">Congratulations to Yu Wang on advancing to Ph.D. candidacy! Congratulations! Yu.</div>
+</li>
+<li class="event" data-year="2020" data-date="03/05/2020">
+  <div class="when">Mar 5, 2020</div>
+  <div class="what">Congratulations to Yinan Li on successfully defending his doctoral disseration today. All the hard work and determination have paid off! Way to go! Dr. Li!</div>
+</li>
+<li class="event" data-year="2020" data-date="02/06/2020">
+  <div class="when">Feb 6, 2020</div>
+  <div class="what">Congratulations to Bingyue Su on advancing to Ph.D. candidacy! Congratulations! Bingyue.</div>
+</li>
+<li class="event" data-year="2019" data-date="09/18/2019">
+  <div class="when">Sep 18, 2019</div>
+  <div class="what">We are pleased to host and welcome Dong Wang as a visiting doctoral student. Dong is a Ph.D. student in Computer Science from Wuhan University in China Welcome! Dong.</div>
+</li>
+<li class="event" data-year="2019" data-date="09/11/2019">
+  <div class="when">Sep 11, 2019</div>
+  <div class="what">Tian Yan and Xingyuan Zhao joined Liu's research group as doctoral students. Tian has a Bachelor in Economics from Central University of Finance and Economics in China and a MS in Applied Mathematics and Statistics from Johns Hopkins University. Xingyuan has a BS in Mathematics and Applied Mathematics from Beijing Normal Univeristy. Welcome! Tian and Xingyuan.</div>
+</li>
+<li class="event" data-year="2019" data-date="07/05/2019">
+  <div class="when">Jul 5, 2019</div>
+  <div class="what">Congratulations to Evercita Eugenio on completing her doctoral disseration and receiving her Ph.D. on Aug 4, 2019! She will join Sandia National Labs in California as a Senior Statistician. All the best, Evercita!</div>
+</li>
+<li class="event" data-year="2019" data-date="01/22/2019">
+  <div class="when">Jan 22, 2019</div>
+  <div class="what">Bingyue Su joined Liu's research group as a doctoral student. Bingyue has a BS in Mathematics from UTSC in China and a MS in Statistics from Columbia. Welcome! Bingyue.</div>
+</li>
+<li class="event" data-year="2019" data-date="01/07/2019">
+  <div class="when">Jan 7, 2019</div>
+  <div class="what">Yu Wang joined Liu's research group as a doctoral student. Yu has a BS in Mathematics from Beihang University in China and a MS in Applied Mathematics from Upenn. Welcome! Yu.</div>
+</li>
+<li class="event" data-year="2018" data-date="05/15/2018">
+  <div class="when">May 15, 2018</div>
+  <div class="what">Congratulations to Claire Bowen on successfully defending her dissertation on 03/27/2018 and being awarded a Ph.D. Degree in ACMS on 05/19/2018! She will be working as a post-doctoral researcher at the Los Alamos National Labs in New Mexico. All the best, Claire! <!---</div>
+</li>
+<li class="event" data-year="2017" data-date="10/31/2017">
+  <div class="when">Oct 31, 2017</div>
+  <div class="what">Gaofei Zhang joined Liu's research group as a doctoral student. Gaofei has a BS in Mathematics from Nankai University in China and a MS in statistics from Uconn. Welcome! Gaofei. --></div>
+</li>
+<li class="event" data-year="2017" data-date="11/8/2017">
+  <div class="when">Nov 8, 2017</div>
+  <div class="what">Congratulations to Yinan Li on advancing to Ph.D candidacy! Congratulations! Yinan. <a href="http://science.nd.edu/news/two-college-of-science-juniors-awarded-clare-boothe-luce-scholarships/" target="_blank" rel="noopener noreferrer"></div>
+</li>
+<li class="event" data-year="2017" data-date="05/25/2017">
+  <div class="when">May 25, 2017</div>
+  <div class="what"><a href="http://science.nd.edu/news/two-college-of-science-juniors-awarded-clare-boothe-luce-scholarships/" target="_blank" rel="noopener noreferrer"> Ashley Ahimbisibwe has been awarded full merit-based scholarships for the 2017–2018 academic year through the Clare Boothe Luce Program. Congratulations! Ashley. <a href="https://ghc.anitaborg.org/2017-student-academic/2017-scholarships/" target="_blank" rel="noopener noreferrer"></div>
+</li>
+<li class="event" data-year="2017" data-date="05/2017">
+  <div class="when">May 2017</div>
+  <div class="what"><a href="https://ghc.anitaborg.org/2017-student-academic/2017-scholarships/" target="_blank" rel="noopener noreferrer"> Claire Bowen won the Calire Grace Hopper Celebration of Women in Computing Student Scholarship to attend the GHC Women in Computing conference in Oct 2017. Congratulations! Claire. <a href="http://arxiv-export-lb.library.cornell.edu/abs/1602.01063" target="_blank" rel="noopener noreferrer"></div>
+</li>
+<li class="event" data-year="2017" data-date="01/2017">
+  <div class="when">Jan 2017</div>
+  <div class="what"><a href="http://arxiv-export-lb.library.cornell.edu/abs/1602.01063" target="_blank" rel="noopener noreferrer"> Claire Bowen won the Best Student Paper Award on the paper "Comparative Study of Differentially Private Data Synthesis Methods." (Bowen and Liu, 2016). Claire will present the paper at the JSM in Baltimore in Aug 2017. Congratulations! Claire.</div>
+</li>
+      </ul>
+
+      <p id="emptyState" class="lead" style="display:none; margin-top:14px;">No matching items. Try clearing filters.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+    <div>© <span id="year"></span> All Rights Reserved.</div>
+    <div><a href="index.html">Back to home</a></div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('#navmenu');
+  function setOpen(open){
+    nav.dataset.open = open ? "true" : "false";
+    toggle.setAttribute('aria-expanded', open ? "true" : "false");
+  }
+  toggle?.addEventListener('click', () => setOpen(nav.dataset.open !== "true"));
+  nav?.addEventListener('click', (e) => {
+    if(e.target.tagName === 'A' && window.innerWidth <= 860) setOpen(false);
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Filtering
+  const q = document.getElementById('q');
+  const y = document.getElementById('y');
+  const items = Array.from(document.querySelectorAll('#timeline .event'));
+  const empty = document.getElementById('emptyState');
+
+  function normalize(s){ return (s||'').toLowerCase(); }
+
+  function applyFilters(){
+    const qq = normalize(q.value);
+    const yy = y.value;
+    let shown = 0;
+
+    for (const el of items){
+      const text = normalize(el.textContent);
+      const year = el.getAttribute('data-year') || '';
+      const okQ = !qq || text.includes(qq);
+      const okY = !yy || year === yy;
+
+      const show = okQ && okY;
+      el.style.display = show ? '' : 'none';
+      if(show) shown++;
+    }
+    empty.style.display = shown ? 'none' : '';
+  }
+
+  q.addEventListener('input', applyFilters);
+  y.addEventListener('change', applyFilters);
+  applyFilters();
+</script>
+</body>
+</html>
