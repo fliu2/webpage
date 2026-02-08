@@ -345,6 +345,17 @@ hr.sep{
 @media (max-width: 700px){
   .event{grid-template-columns: 1fr;}
 }
+
+    .lab-name{
+  font-size: 1.05rem;   /* increase this */
+  font-weight: 700;
+}
+
+.lab-acronym{
+  font-size: clamp(2.2rem, 4vw, 3.2rem);  /* decrease this */
+  line-height: 1.05;
+  margin-top: .35rem;
+}
 </style>
 </head>
 <body>
@@ -379,8 +390,8 @@ hr.sep{
   <div class="container">
     <section class="hero" id="top" aria-label="Hero">
       <div>
-        <div class="badge">Liu’s Trustworthy & Ethical Statistical Learning Lab</div>
-        <h1>(TESLLa)</h1>
+        <div class="badge lab-name">Liu’s Trustworthy & Ethical Statistical Learning Lab</div>
+        <h1 class="lab-acronym">(TESLLa)</h1>
         <p class="subtitle">Research in differential privacy, trustworthy statistical learning, synthetic data, and probabilistic machine learning — with applications in biostatistics and the social sciences.</p>
 
         <div class="actions">
