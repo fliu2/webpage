@@ -1,41 +1,610 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-            font-size: 3em;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TESLLa — Liu's Trustworthy & Ethical Statistical Learning Lab</title>
+  <meta name="description" content="Liu's Trustworthy and Ethical Statistical Learning Lab (TESLLa) at the University of Notre Dame." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --bg: #0b1020;
+  --surface: rgba(255,255,255,.06);
+  --surface2: rgba(255,255,255,.09);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+  --border: rgba(255,255,255,.12);
+  --accent: #c99700; /* ND-ish gold */
+  --accent2: #1f6feb;
+  --max: 1100px;
+  --radius: 18px;
+  --shadow: 0 18px 45px rgba(0,0,0,.35);
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f7fb;
+    --surface:#ffffff;
+    --surface2:#f0f3fa;
+    --text:rgba(10,15,26,.92);
+    --muted:rgba(10,15,26,.68);
+    --border:rgba(10,15,26,.12);
+    --shadow: 0 18px 45px rgba(10,15,26,.10);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 15% 0%, rgba(31,111,235,.25), transparent 55%),
+              radial-gradient(1100px 700px at 85% 15%, rgba(201,151,0,.22), transparent 60%),
+              var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{color:inherit; text-decoration-color: rgba(201,151,0,.6); text-underline-offset: 3px}
+a:hover{ text-decoration-color: rgba(201,151,0,1); }
+.container{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+.skip-link{
+  position:absolute; left:-999px; top:10px;
+  background:var(--surface); border:1px solid var(--border); color:var(--text);
+  padding:10px 14px; border-radius:999px; z-index:9999;
+}
+.skip-link:focus{ left:18px }
+
+.site-header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 0;
+  gap: 12px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px; min-width: 220px;
+  text-decoration:none;
+}
+.brand-mark{
+  width:38px; height:38px; border-radius:12px;
+  background: linear-gradient(135deg, rgba(201,151,0,.9), rgba(31,111,235,.9));
+  box-shadow: 0 10px 22px rgba(0,0,0,.22);
+}
+.brand-text{display:flex; flex-direction:column; line-height:1.1}
+.brand-text strong{font-size: 14px; letter-spacing:.2px}
+.brand-text span{font-size: 12px; color:var(--muted)}
+
+.nav{
+  display:flex; align-items:center; gap: 10px;
+}
+.nav a{
+  padding:10px 12px;
+  border-radius: 999px;
+  text-decoration:none;
+  color: var(--muted);
+}
+.nav a:hover, .nav a:focus-visible{
+  background: var(--surface);
+  color: var(--text);
+}
+.nav a.cta{
+  color: var(--text);
+  border:1px solid color-mix(in srgb, var(--accent) 60%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.nav-toggle{
+  display:none;
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius: 12px;
+  cursor:pointer;
+}
+
+@media (max-width: 860px){
+  .nav-toggle{display:inline-flex; align-items:center; gap:8px;}
+  .nav{
+    position:absolute;
+    left:18px; right:18px; top:64px;
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    padding:12px;
+    border-radius: var(--radius);
+    border:1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .nav[data-open="true"]{display:flex;}
+  .nav a{border-radius: 12px;}
+}
+
+main{padding: 26px 0 54px}
+.section{padding: 34px 0}
+.section h2{font-size: 26px; margin: 0 0 14px}
+.section p.lead{color:var(--muted); margin-top: 0}
+
+.hero{
+  display:grid;
+  grid-template-columns: 1.25fr .95fr;
+  gap: 22px;
+  align-items: center;
+  padding: 24px 0 8px;
+}
+@media (max-width: 860px){
+  .hero{grid-template-columns:1fr; padding-top: 10px;}
+}
+
+.hero h1{
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height:1.08;
+  margin: 0 0 10px;
+  letter-spacing: -0.4px;
+}
+.hero .subtitle{
+  color: var(--muted);
+  font-size: 16px;
+  margin: 0 0 18px;
+}
+.pills{display:flex; flex-wrap:wrap; gap:10px; margin: 18px 0 0}
+.pill{
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration:none;
+  color: var(--text);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.btn:hover{transform: translateY(-1px)}
+.btn.primary{
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--border));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--surface)), var(--surface));
+}
+.btn.ghost{
+  background: transparent;
+}
+.card{
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card.pad{padding: 18px}
+.grid{
+  display:grid;
+  gap: 14px;
+}
+.grid.two{grid-template-columns: repeat(2, minmax(0,1fr));}
+.grid.three{grid-template-columns: repeat(3, minmax(0,1fr));}
+@media (max-width: 860px){
+  .grid.two, .grid.three{grid-template-columns: 1fr;}
+}
+
+.hero-figure{
+  overflow:hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(31,111,235,.22), rgba(201,151,0,.18));
+  position:relative;
+}
+.hero-figure img{
+  width:100%; height:100%;
+  display:block;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  filter: saturate(1.05);
+}
+.hero-figure figcaption{
+  position:absolute; left:12px; bottom:12px;
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.16);
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+@media (prefers-color-scheme: light){
+  .hero-figure figcaption{
+    background: rgba(255,255,255,.55);
+    color: rgba(10,15,26,.9);
+  }
+}
+
+.list{
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.list li{margin: 7px 0}
+
+.news-item{
+  display:flex; gap:12px; align-items:flex-start;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.news-date{
+  min-width: 86px;
+  font-weight: 600;
+  color: var(--text);
+}
+.news-text{color: var(--muted);}
+.news-text a{color: var(--text);}
+
+.kv{
+  display:grid;
+  grid-template-columns: 150px 1fr;
+  gap: 10px 14px;
+  align-items:start;
+}
+.kv div:nth-child(odd){color: var(--muted)}
+.kv div:nth-child(even){color: var(--text)}
+@media (max-width: 600px){
+  .kv{grid-template-columns: 1fr;}
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 7px 10px;
+  border:1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 75%, transparent);
+  font-size: 12px;
+}
+
+details{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px 16px;
+}
+details summary{
+  cursor:pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+details .muted{color: var(--muted); margin-top: 8px;}
+
+.footer{
+  border-top: 1px solid var(--border);
+  padding: 22px 0;
+  color: var(--muted);
+}
+.footer a{color: var(--text)}
+
+hr.sep{
+  border:0;
+  height:1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* Archive */
+.controls{
+  display:flex; flex-wrap:wrap; gap: 10px;
+  margin: 14px 0 10px;
+}
+.control{
+  flex: 1 1 220px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.control label{font-size:12px; color: var(--muted)}
+.control input, .control select{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+}
+.timeline{list-style:none; padding:0; margin: 10px 0 0; display:grid; gap: 12px}
+.event{
+  display:grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.event .when{
+  font-weight: 700;
+  color: var(--text);
+}
+.event .what{
+  color: var(--muted);
+}
+.event .what a{color: var(--text);}
+@media (max-width: 700px){
+  .event{grid-template-columns: 1fr;}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>My webpage is getting a facelift.</h1>
-        <p>Check back for updates!</p>
-         <!-- <img src="https://sismo.app/wp-content/uploads/2019/02/under-construction-gif-11.gif" alt="Under Construction Animated GIF"> -->
-        <img src="img/under.png" alt="Under Construction">
-    </div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="TESLLa home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>TESLLa</strong>
+        <span>Notre Dame · ACMS</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navmenu">
+      ☰ Menu
+    </button>
+
+    <nav id="navmenu" class="nav" data-open="false" aria-label="Primary">
+      <a href="#news">News</a>
+      <a href="#research">Research</a>
+      <a href="#people">People</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" href="https://acms.nd.edu/" target="_blank" rel="noopener noreferrer">ND ACMS</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+    <section class="hero" id="top" aria-label="Hero">
+      <div>
+        <div class="badge">Liu’s Trustworthy & Ethical Statistical Learning Lab</div>
+        <h1>(TESLLa)</h1>
+        <p class="subtitle">Research in differential privacy, trustworthy statistical learning, synthetic data, and probabilistic machine learning — with applications in biostatistics and the social sciences.</p>
+
+        <div class="actions">
+          <a class="btn primary" href="#research">Explore research</a>
+          <a class="btn" href="#people">Meet the team</a>
+          <a class="btn ghost" href="newsarchive.html">News archive</a>
+        </div>
+
+        <div class="pills" aria-label="Highlights">
+          <span class="pill">Differential privacy</span>
+          <span class="pill">Trustworthy ML</span>
+          <span class="pill">Synthetic data</span>
+          <span class="pill">Bayesian modeling</span>
+        </div>
+      </div>
+
+      <figure class="hero-figure" aria-label="Lab photo">
+        <img src="images/commencement2024.jpeg" alt="TESLLa group photo" onerror="this.style.display='none'" />
+        <figcaption>TESLLa · University of Notre Dame</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="news">
+      <h2>Group news</h2>
+      <p class="lead">Recent updates and announcements. Older items are in the <a href="newsarchive.html">news archive</a>.</p>
+      <div class="grid" style="gap:10px;">
+        <div class="news-item">
+  <div class="news-date">07/2025</div>
+  <div class="news-text">Congratulations to Ruyu on receiving the Notre Dame Scientific Artificial Intelligence (SAI) Initiative Graduate Fellowship Award</div>
+</div>
+<div class="news-item">
+  <div class="news-date">07/2025</div>
+  <div class="news-text">Congratulations to Spencer Giddens on successfully defending his doctoral dissertation and graduation from ND!</div>
+</div>
+<div class="news-item">
+  <div class="news-date">07/2025</div>
+  <div class="news-text"><a href="https://lucyinstitute.nd.edu/news-events/2025/08/05/fang-liu-appointed-director-of-the-lucy-family-institute-health-data-exploration-analytics-lab/" target="_blank" rel="noopener noreferrer">Fang appointed the director of Health Data Exploration &amp; Analytics Lab (HEAL) at the Lucy Family Institute of Data &amp; Society.</a></div>
+</div>
+<div class="news-item">
+  <div class="news-date">06/2025</div>
+  <div class="news-text">Congratulations to Xiaoan (Shawn) Lang on successfully passing the oral candidacy exam and advancing to PhD candidacy!</div>
+</div>
+<div class="news-item">
+  <div class="news-date">04/2025</div>
+  <div class="news-text">Congratulations to Gina Mannino on successfully passing the oral candidacy exam and advancing to PhD candidacy!</div>
+</div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <h2>Research</h2>
+      <p class="lead">Our work focuses on the following areas.</p>
+      <div class="grid three">
+        <div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Differential privacy</h3>
+</div>
+<div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Trustworthy statistical learning and machine learning (eg. privacy, fairness, uncertainty quantification, etc.)</h3>
+</div>
+<div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Synthetic data and generative models</h3>
+</div>
+<div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Probabilistic machine learning and Bayesian methods and modeling</h3>
+</div>
+<div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Statistical analysis of missing data</h3>
+</div>
+<div class="card pad">
+  <div class="badge">Research focus</div>
+  <h3 style="margin:10px 0 6px; font-size:16px;">Epidemiological, biostatistical, and social science applications</h3>
+</div>
+      </div>
+    </section>
+
+    <section class="section" id="people">
+      <h2>People</h2>
+
+      <div class="grid two">
+        <div class="card pad">
+          <div class="badge">Principal Investigator</div>
+          <h3 style="margin:10px 0 6px; font-size:18px;">Dr. Fang Liu</h3>
+          <p style="margin:0; color:var(--muted);">Notre Dame Collegiate Professor · Associate Chair (ACMS)</p>
+          <hr class="sep" />
+          <p style="margin:0; color:var(--muted);">Prof. Liu joined Notre Dame and the Department of Applied and Computational Mathematics and Statistics (ACMS) in Fall 2011. Publications are available on <a href="https://scholar.google.com/citations?user=lVYBYqcAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>.</p>
+          <hr class="sep" />
+          <p style="margin:0; color:var(--muted);"><strong style="color:var(--text);">Support:</strong> NSF · NIH · Gates Foundation · UNITAID · Notre Dame</p>
+        </div>
+
+        <div class="card pad">
+          <div class="badge">Current lab members</div>
+          <ul class="list">
+            <li>Ruyu Zhou (Ph.D. candidate in ACMS): working on differentially private statistical inference; 2021 ~</li>
+<li>Xiaoan (Shawn) Lang (Ph.D. student in ACMS): 2024 ~</li>
+<li>Gina Mannino (Ph.D. student in ACMS): 2024 ~</li>
+<li>Leyang Li (undergraduate researcher in ACMS): spring 2026</li>
+          </ul>
+
+          <div style="height:12px"></div>
+
+          <details>
+            <summary>Lab alumni (first job upon graduation)</summary>
+            <p class="muted">A selection of alumni and their first positions after leaving the lab.</p>
+            <ul class="list">
+              <li><a href="https://www.linkedin.com/in/spencer-giddens/" target="_blank" rel="noopener noreferrer"> Spencer Giddes </a>, Ph.D. in ACMS, 2025 (Lucy Family Institute of Data & Society)</li>
+<li><a href="https://www.linkedin.com/in/tianyan2024/" target="_blank" rel="noopener noreferrer"> Tian Yan </a>, Ph.D. in ACMS, 2024 (TikTok)</li>
+<li><a href="https://www.linkedin.com/in/xingyuan-zhao/" target="_blank" rel="noopener noreferrer"> Xingyuan Zhao </a>, Ph.D. in ACMS, 2024 (Wells Fargo)</li>
+<li><a href="https://www.linkedin.com/in/yu-wang-a9554a145/" target="_blank" rel="noopener noreferrer"> Yu Wang </a>, Ph.D. in ACMS, 2023 (Epsilon)</li>
+<li><a href="https://www.linkedin.com/in/bingyue-su-a09929146/" target="_blank" rel="noopener noreferrer"> Bingyue Su </a>, Ph.D. in ACMS, 2023 (Wells Fargo)</li>
+<li><a href=" https://ieeexplore.ieee.org/author/37089537633/"> Dong Wang </a>, visiting Ph.D. student from Wuhan University, 2021 (Assistant Professor, Hangzhou Dianzi Univ)</li>
+<li><a href="https://www.linkedin.com/in/yinanli1994" target="_blank" rel="noopener noreferrer"> Yinan Li </a>, Ph.D. in ACMS, 2020 (JP Morgan Chase & Co.)</li>
+<li><a href="https://www.linkedin.com/in/evercitaeugenio/" target="_blank" rel="noopener noreferrer"> Evercita Eugenio </a>, Ph.D. in ACMS, 2019 (Sandia National Lab)</li>
+<li><a href="http://www.clairemckaybowen.com//" target="_blank" rel="noopener noreferrer"> Claire Bowen </a> , Ph.D. in ACMS, 2018 (Los Alamos National Lab)</li>
+<li><a href="https://www.linkedin.com/in/bide-xiong-a690478b/" target="_blank" rel="noopener noreferrer"> Bide Xiong </a>, Ph.D. candidate in ACMS, 2019</li>
+<li>Sijing Shao (Ph.D. in Quantitative Psychology), 2020</li>
+<li>Xiao Liu (Research M.S. in Statistics; Ph.D. in Quantitative Psychology), 2020 (Assistant Professor, UT Austin)</li>
+<li>Bao Khanh Cu (Professional M.S. student), 2020</li>
+<li>Qimin Liu (Research M.S. in Statistics; Ph.D. in Quantitative Psychology), 2019 (Vanderbilt)</li>
+<li>Brenna Gomer (Research M.S. in Statistics; Ph.D. in Quantitative Psychology), 2019</li>
+<li>Yushan Zhang (Research M.S. in Statistics; Ph.D. in Chemical Engineering), 2019 (McKinsey)</li>
+<li>Kaiwei Chen (Research M.S. in Statistics; Ph.D. in Electrical Engineering), 2019 (Microsoft)</li>
+<li>Xin Mu (Research M.S. in Statistics; Ph.D. in AME), 2017 (BMO Harris Bank)</li>
+<li>JiXin Si (Research M.S. in Statistics; Ph.D. in Physics), 2017</li>
+<li>Richard GibbonPrice (Research M.S. in Statistics; Ph.D. in Political Science), 2017</li>
+<li>Nathanael Sumaktoyo (Research M.S. in Statistics; Ph.D. in Political Science), 2016</li>
+<li>Han Du (Research M.S. in Statistics; Ph.D. in QuantPsy), 2015 (Assistant Professor, UCLA)</li>
+<li>Rachel Baird (Research M.S. in Statistics; Ph.D. in QuantPsy), 2015 (UPMC)</li>
+<li>Daniel McArtor (Research M.S. in Statistics; Ph.D. in QuantPsy), 2015 (Google)</li>
+<li>Patrick Miller (Research M.S. in Statistics; Ph.D. in QuantPsy), 2015</li>
+<li>Evan Claudeanos (Research M.S. in Statistics; Ph.D. in Philosophy), 2015</li>
+<li>Ling Sun (Research M.S. in Statistics; Ph.D. in Bioengineering), 2014 (ND)</li>
+<li>Lu Li (Professional M.S. in Applied Statistics), 2013</li>
+<li>Sofia Li-Harezlak (undergraduate Researcher) spring/summer, 2024</li>
+<li>Rui Guan (undergraduate Researcher) summer, 2021 (MS in Statistics at Yale)</li>
+<li>Jocob Chang (undergraduate researcher, 2021</li>
+<li>Ashley Ahimbisibwe (undergraduate researcher), 2016 ~ 2017</li>
+<li>Rachael Quest (undergraduate researcher), 2017</li>
+<li>YiKun Qian (undergraduate researcher), 2017 (MS in Statistics at U of Minnesota)</li>
+<li>Zhaoyu Cai (undergraduate researcher), 2016 (MS in CS at U of Berkeley)</li>
+<li>Yilan He (undergraduate researcher), 2016 (MS in Financial Engineering at UCLA)</li>
+<li>Bojia Qiu (undergraduate researcher), 2016 (MS in CS at McGill Univ)</li>
+<li>Nick Troetti (undergraduate researcher), 2015 (senior actuarial assistant at AIG)</li>
+<li>Colleen Pinkleman (undergraduate researcher), 2014 (business analyst at Amazon)</li>
+<li>Yunchuan Kong (undergraduate researcher), 2013 (doctoral biostatistics student at Emory)</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="teaching">
+      <h2>Teaching</h2>
+      <p class="lead">Selected courses taught at Notre Dame.</p>
+      <div class="card pad">
+        <ul class="list">
+          <li>ACMS 80870 Topics in Statistics (Trustworthy Machine Learning) (Spring 2026)</li>
+<li>ACMS 40852/60852 Advanced Biostatistical Methods (2012 ~ )</li>
+<li>ACMS 60885 Applied Bayesian Statistics (2014 ~ )</li>
+<li>ACMS 60786 (60784/60785): Applied Regression Models (I/II) (2016, 2017)</li>
+<li>ACMS 30600 Statistical Methods and Data Analysis (2012)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <div class="card pad">
+        <div class="kv">
+          <div>Office</div><div>201B Crowley</div>
+          <div>Email</div>
+          <div>
+            <span id="emailText">fang DOT liu DOT 131 AT nd DOT edu</span>
+            &nbsp;·&nbsp;
+            <button class="btn" type="button" id="copyEmailBtn" style="padding:6px 10px; border-radius:12px;">Copy</button>
+          </div>
+          <div>Phone</div><div>574-631-0895</div>
+        </div>
+        <p style="margin:14px 0 0; color:var(--muted); font-size:13px;">Tip: If you prefer a clickable email link, replace the obfuscated address with a standard <code>mailto:</code>.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+    <div>© <span id="year"></span> All Rights Reserved.</div>
+    <div><a href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('#navmenu');
+  function setOpen(open){
+    nav.dataset.open = open ? "true" : "false";
+    toggle.setAttribute('aria-expanded', open ? "true" : "false");
+  }
+  toggle?.addEventListener('click', () => setOpen(nav.dataset.open !== "true"));
+  nav?.addEventListener('click', (e) => {
+    if(e.target.tagName === 'A' && window.innerWidth <= 860) setOpen(false);
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Copy email (keeps obfuscation on page)
+  document.getElementById('copyEmailBtn')?.addEventListener('click', async () => {
+    const email = ["fang","liu","131"].join(".") + "@nd.edu";
+    try {
+      await navigator.clipboard.writeText(email);
+      const btn = document.getElementById('copyEmailBtn');
+      const prev = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = prev, 1200);
+    } catch (e) {
+      alert("Copy failed. Email: " + email);
+    }
+  });
+</script>
 </body>
 </html>
